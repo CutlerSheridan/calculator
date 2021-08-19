@@ -1,14 +1,15 @@
 let num1 = "";
 let num2 = "";
 let activeNum = "";
-let onFirstNum = true;
-let displayNum = 0;
+let twoStepOperator = "";
+let lastInputWasEquals = false;
 
 function clear() {
     num1 = "";
     num2 = "";
     activeNum = "";
-    onFirstNum = true;
+    twoStepOperator = "";
+    lastInputWasEquals = false;
     updateDisplay();
 }
 
@@ -21,19 +22,14 @@ const numBtns = document.querySelectorAll(".btn-num");
 numBtns.forEach(btn => btn.addEventListener("click", (e) => updateActiveNum(e.target.value)));
 
 const oneStepBtns = document.querySelectorAll(".btn-one-step");
-oneStepBtns.forEach(btn => btn.addEventListener("click", (e) => tester(e.target.value)));
+oneStepBtns.forEach(btn => btn.addEventListener("click", (e) => operateOneStepButton(e.target.value)));
 
+const twoStepBtns = document.querySelectorAll(".btn-two-step");
+twoStepBtns.forEach(btn => btn.addEventListener("click", (e) => operateTwoStepButton(e.target.value)));
 
 // MAIN LOGIC END
 
 // FUNCTIONS START
-// add listeners to buttons that first store a string of
-// numbers, then a word/symbol is stored for the operator, then
-// another string of numbers, then the next operator calculates
-// maybe with a function that runs every time any operator is called
-// and num2 is not undefined? then set num1 = result and num2 to ""
-// and then the equals operator just always spits out result
-
 function updateActiveNum(newDigit){
     if (+newDigit > 0) {
         activeNum += newDigit;
@@ -45,19 +41,76 @@ function updateActiveNum(newDigit){
         activeNum = activeNum.slice(0, activeNum.length - 1);
     }
     updateDisplay();
-    console.log(activeNum);
-    let tester = "0";
-    if (+tester) {
-        console.log(true);
-    } else {
-        console.log(false);
+    console.log();
+}
+function operateTwoStepButton(input) {
+    if (lastInputWasEquals) {
+        twoStepOperator = "";
+        activeNum = num1;
+    }
+    if (twoStepOperator) {
+        num2 = activeNum;
+        equals(twoStepOperator);
+    }
+
+    twoStepOperator = input;
+    num1 = activeNum;
+    activeNum = "";
+    lastInputWasEquals = false;
+}
+
+function operateOneStepButton(input) {
+    if (twoStepOperator) {
+        num2 = activeNum;
+        equals(twoStepOperator, input);
+    }
+    
+    if (input != "=") {
+        num1 = activeNum;
+        equals(input);
     }
 }
 
-function tester(input) {
-    if (input === "c") {
-        clear();
+function equals(operator) {
+    switch (operator) {
+        case "c":
+            clear();
+            break;
+        case "%":
+            percent();
+            break;
+        case "+/-":
+            invert();
+            break;
+        case "!":
+            factorial(num1);
+            break;
+        case "+":
+            add();
+            break;
+        case "-":
+            subtract();
+            break;
+        case "*":
+            multiply();
+            break;
+        case "/":
+            divide();
+            break;
+        case "^":
+            power();
+            break;
     }
+    if (arguments[1] === "=") {
+        updateDisplay();
+        num1 = activeNum;
+        activeNum = num2;
+        lastInputWasEquals = true;
+        return;
+    }
+    updateDisplay();
+    num1 = activeNum;
+    num2 = "";
 }
 
 const display = document.querySelector(".screen-text");
@@ -70,13 +123,13 @@ function updateDisplay() {
 }
 
 // ugh this prob will make more sense to pass nums as parameters
-function add() {return num1 + num2;}
-function subtract() {return num1 - num2;}
-function multiply() {return num1 * num2;}
-function divide() {return num1 / num2;}
+function add() {activeNum =  +num1 + +num2;}
+function subtract() {activeNum = +num1 - +num2;}
+function multiply() {activeNum = +num1 * +num2;}
+function divide() {activeNum = +num1 / +num2;}
 
 function invert() {return num1 * -1;}
-function percent() {return num1 / 100;}
+function percent() {activeNum = num1 / 100;}
 function power() {return num1 ** num2;}
 function factorial(num) {
     if (num > 1) {
@@ -85,9 +138,9 @@ function factorial(num) {
         return 1;
     }
 }
-//function clear()
-//function delete()
-//function equals()
+function random() {
+    activeNum = Math.round(Math.random() * 1000);
+}
 
 function createNumPad() {
     let numPadFragment = document.createDocumentFragment();

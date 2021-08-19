@@ -38,6 +38,9 @@ function updateActiveNum(newDigit){
     } else if (newDigit === "." && activeNum.indexOf(".") === -1) {
         activeNum += newDigit;
     } else if (newDigit === "<" && activeNum.length >= 1) {
+        /*if (lastInputWasEquals) {
+            activeNum = num1;
+        }*/
         activeNum = activeNum.slice(0, activeNum.length - 1);
     }
     updateDisplay();
@@ -60,12 +63,14 @@ function operateTwoStepButton(input) {
 }
 
 function operateOneStepButton(input) {
-    if (input === "%") {
+    if (input === "%" || input === "+/-" || input === "!" || input === "rand") {
         if (lastInputWasEquals) {
             activeNum = num1;
             twoStepOperator = "";
         }
         equals(input);
+        updateDisplay();
+        num2 = activeNum;
         lastInputWasEquals = false;
         return;
     }
@@ -75,7 +80,7 @@ function operateOneStepButton(input) {
     }
     
     if (input != "=") {
-        num1 = activeNum;
+        //num1 = activeNum;
         equals(input);
     }
 }
@@ -87,15 +92,16 @@ function equals(operator) {
             break;
         case "%":
             percent();
-            updateDisplay();
-            num2 = activeNum;
             return;
         case "+/-":
             invert();
-            break;
+            return;
         case "!":
-            factorial(num1);
-            break;
+            activeNum = factorial(activeNum);
+            return;
+        case "rand":
+            random();
+            return;
         case "+":
             add();
             break;
@@ -132,15 +138,14 @@ function updateDisplay() {
     }
 }
 
-// ugh this prob will make more sense to pass nums as parameters
 function add() {activeNum =  +num1 + +num2;}
 function subtract() {activeNum = +num1 - +num2;}
 function multiply() {activeNum = +num1 * +num2;}
 function divide() {activeNum = +num1 / +num2;}
 
-function invert() {return num1 * -1;}
+function invert() {activeNum = activeNum * -1;}
 function percent() {activeNum = activeNum / 100;}
-function power() {return num1 ** num2;}
+function power() {activeNum =  num1 ** num2;}
 function factorial(num) {
     if (num > 1) {
         return num * factorial(num - 1);

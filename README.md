@@ -4,7 +4,9 @@
 Click on numbers.  Click on operators.  Get results.
 
 ### NEXT STEPS
-- get one-step buttons working both solo and as mid-equation operators
+- get x! working
+- get rand working
+- get invert working (maybe these are all a single thing)
 - round long decimal answers
 - add error message if dividing by 0
 
@@ -15,5 +17,6 @@ Click on numbers.  Click on operators.  Get results.
 - add dark mode toggle
 
 ### DONE
+- get % working both solo and as mid-equation operator
 - figure out why "equals" works the first time, then performs the same operation on the result
 - make two step operator work with result of equals instead of adding the last number

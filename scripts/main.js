@@ -60,6 +60,15 @@ function operateTwoStepButton(input) {
 }
 
 function operateOneStepButton(input) {
+    if (input === "%") {
+        if (lastInputWasEquals) {
+            activeNum = num1;
+            twoStepOperator = "";
+        }
+        equals(input);
+        lastInputWasEquals = false;
+        return;
+    }
     if (twoStepOperator) {
         num2 = activeNum;
         equals(twoStepOperator, input);
@@ -78,7 +87,9 @@ function equals(operator) {
             break;
         case "%":
             percent();
-            break;
+            updateDisplay();
+            num2 = activeNum;
+            return;
         case "+/-":
             invert();
             break;
@@ -101,14 +112,13 @@ function equals(operator) {
             power();
             break;
     }
+    updateDisplay();
     if (arguments[1] === "=") {
-        updateDisplay();
         num1 = activeNum;
         activeNum = num2;
         lastInputWasEquals = true;
         return;
     }
-    updateDisplay();
     num1 = activeNum;
     num2 = "";
 }
@@ -129,7 +139,7 @@ function multiply() {activeNum = +num1 * +num2;}
 function divide() {activeNum = +num1 / +num2;}
 
 function invert() {return num1 * -1;}
-function percent() {activeNum = num1 / 100;}
+function percent() {activeNum = activeNum / 100;}
 function power() {return num1 ** num2;}
 function factorial(num) {
     if (num > 1) {

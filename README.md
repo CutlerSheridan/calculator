@@ -4,8 +4,7 @@
 Click on numbers.  Click on operators.  Get results.
 
 ### NEXT STEPS
-- get backspace working if it's an equals result
-- round long decimal answers
+- deal with answers too long (display msg for x seconds before clearing?)
 - add error message if dividing by 0
 
 ### TO-DO LATER
@@ -15,6 +14,11 @@ Click on numbers.  Click on operators.  Get results.
 - add dark mode toggle
 
 ### DONE
+- fix pressing decimal after equals not keeping decimal if result was decimal
+- fix decimals w/o ints operating on decimals w/o ints ~~not returning result~~ not _displaying_ result
+- round long decimal answers
+- add ability after "equals" to just type a new number to start fresh
+- get backspace working if it's an equals result
 - get rand working
 - get x! working
 - get invert working (maybe these are all a single thing)

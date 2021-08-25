@@ -31,20 +31,33 @@ twoStepBtns.forEach(btn => btn.addEventListener("click", (e) => operateTwoStepBu
 
 // FUNCTIONS START
 function updateActiveNum(newDigit){
-    if (+newDigit > 0) {
+    if ((+newDigit > 0) ||
+        (newDigit === "0" && activeNum.length > 0) ||
+        (newDigit === "." && (activeNum.indexOf(".") === -1 || lastInputWasEquals))) {
+        if (lastInputWasEquals) {
+            clear();
+        }
         activeNum += newDigit;
-    } else if (newDigit === "0" && activeNum.length > 0) {
-        activeNum += newDigit;
-    } else if (newDigit === "." && activeNum.indexOf(".") === -1) {
-        activeNum += newDigit;
-    } else if (newDigit === "<" && activeNum.length >= 1) {
-        /*if (lastInputWasEquals) {
-            activeNum = num1;
-        }*/
-        activeNum = activeNum.slice(0, activeNum.length - 1);
+    } else if (newDigit === "<") {
+        if (lastInputWasEquals) {
+            console.log("If (lastInputWasEquals) start");
+            console.log(`original num1, activeNum, num2: ${num1}, ${activeNum}, ${num2}`);
+            activeNum = num1.toString();
+            console.log(`new num1, activeNum, num2: ${num1}, ${activeNum}, ${num2}`);
+            //lastInputWasEquals = false;
+            console.log(`activeNum length: ${activeNum.length}`);
+            console.log("if (lastinputwasequals) end");
+        }
+        if (activeNum.length >= 1) {
+            activeNum = activeNum.slice(0, activeNum.length - 1);
+            console.log(`sliced activeNum: ${activeNum}`);
+            if (lastInputWasEquals) {
+                num1 = activeNum;
+            }
+        }
     }
     updateDisplay();
-    console.log();
+    console.log(`final num1, activeNum, num2: ${num1}, ${activeNum}, ${num2}`);
 }
 function operateTwoStepButton(input) {
     if (lastInputWasEquals) {
@@ -103,16 +116,16 @@ function equals(operator) {
             random();
             return;
         case "+":
-            add();
+            improveAccuracy(add);
             break;
         case "-":
-            subtract();
+            improveAccuracy(subtract);
             break;
         case "*":
-            multiply();
+            improveAccuracy(multiply);
             break;
         case "/":
-            divide();
+            improveAccuracy(divide);
             break;
         case "^":
             power();
@@ -131,14 +144,32 @@ function equals(operator) {
 
 const display = document.querySelector(".screen-text");
 function updateDisplay() {
-    if (activeNum) {
-        display.textContent = activeNum;
-    } else {
-        display.textContent = 0;
+    activeNum = activeNum.toString();
+    if (activeNum.indexOf(".") != -1) {
+        while (activeNum.lastIndexOf("0") === activeNum.length - 1 && lastInputWasEquals) {
+            activeNum = activeNum.slice(0, activeNum.length - 2);
+        }
+    // if whole num is longer than 10, cut off decimal
     }
+    // if still longer than 10, display error and start program over
+    if (activeNum[0] === "0") {
+        activeNum = activeNum.slice(1, activeNum.length);
+    }
+
+    if (!activeNum) {
+        display.textContent = 0;
+        return
+    }
+    display.textContent = activeNum;
 }
 
-function add() {activeNum =  +num1 + +num2;}
+function improveAccuracy(func) {
+    func(activeNum);
+    const adjustor = 10 ** 9;
+    activeNum = Math.round(activeNum * adjustor) / adjustor;
+    console.log(`adjusted add equals: ${activeNum}`);
+}
+function add() {activeNum =  +num1 + +num2; console.log(`add equals: ${activeNum};`)}
 function subtract() {activeNum = +num1 - +num2;}
 function multiply() {activeNum = +num1 * +num2;}
 function divide() {activeNum = +num1 / +num2;}

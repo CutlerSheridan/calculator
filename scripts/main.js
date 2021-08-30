@@ -131,13 +131,14 @@ function equals(operator) {
             power();
             break;
     }
-    updateDisplay();
     if (arguments[1] === "=") {
+        lastInputWasEquals = true;
+        updateDisplay();
         num1 = activeNum;
         activeNum = num2;
-        lastInputWasEquals = true;
         return;
     }
+    updateDisplay();
     num1 = activeNum;
     num2 = "";
 }
@@ -145,13 +146,26 @@ function equals(operator) {
 const display = document.querySelector(".screen-text");
 function updateDisplay() {
     activeNum = activeNum.toString();
+    console.log(`activeNum length at start of updateDisplay() = ${activeNum.length}`);
     if (activeNum.indexOf(".") != -1) {
         while (activeNum.lastIndexOf("0") === activeNum.length - 1 && lastInputWasEquals) {
             activeNum = activeNum.slice(0, activeNum.length - 2);
         }
-    // if whole num is longer than 10, cut off decimal
+        if (activeNum.length > 12) {
+            activeNum = Number(activeNum).toFixed(activeNum.length - activeNum.indexOf(".") - 2).toString();
+        }
     }
-    // if still longer than 10, display error and start program over
+    console.log(`activeNum length right before if = ${activeNum.length}`);
+    if (activeNum.length > 12) {
+        console.log(`lastInputWasEquals = ${lastInputWasEquals}`);
+        if (lastInputWasEquals) {
+            activeNum = "Result too long";
+            console.log("if is caught");
+        } else {
+            activeNum = activeNum.slice(0, activeNum.length - 1);
+            console.log("else is caught");
+        }
+    }
     if (activeNum[0] === "0") {
         activeNum = activeNum.slice(1, activeNum.length);
     }
@@ -159,6 +173,9 @@ function updateDisplay() {
     if (!activeNum) {
         display.textContent = 0;
         return
+    }
+    if (activeNum === "Infinity") {
+        activeNum = "Cannot divide by 0";
     }
     display.textContent = activeNum;
 }

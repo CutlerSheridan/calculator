@@ -4,16 +4,17 @@
 Click on numbers.  Click on operators.  Get results.
 
 ### NEXT STEPS
-- deal with answers too long (display msg for x seconds before clearing?)
-- add error message if dividing by 0
 
 ### TO-DO LATER
 - make mobile-friendly
 - add keyboard inputs
 - give it style
 - add dark mode toggle
+- decide for sure how long the numbers should go and update display() and improveAccuracy() accordingly
 
 ### DONE
+- deal with answers too long ~~(display msg for x seconds before clearing?)~~
+- add error message if dividing by 0
 - fix pressing decimal after equals not keeping decimal if result was decimal
 - fix decimals w/o ints operating on decimals w/o ints ~~not returning result~~ not _displaying_ result
 - round long decimal answers

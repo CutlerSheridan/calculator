@@ -26,7 +26,6 @@ oneStepBtns.forEach(btn => btn.addEventListener("click", (e) => operateOneStepBu
 
 const twoStepBtns = document.querySelectorAll(".btn-two-step");
 twoStepBtns.forEach(btn => btn.addEventListener("click", (e) => operateTwoStepButton(e.target.value)));
-
 // MAIN LOGIC END
 
 // FUNCTIONS START
@@ -40,24 +39,16 @@ function updateActiveNum(newDigit){
         activeNum += newDigit;
     } else if (newDigit === "<") {
         if (lastInputWasEquals) {
-            console.log("If (lastInputWasEquals) start");
-            console.log(`original num1, activeNum, num2: ${num1}, ${activeNum}, ${num2}`);
             activeNum = num1.toString();
-            console.log(`new num1, activeNum, num2: ${num1}, ${activeNum}, ${num2}`);
-            //lastInputWasEquals = false;
-            console.log(`activeNum length: ${activeNum.length}`);
-            console.log("if (lastinputwasequals) end");
         }
         if (activeNum.length >= 1) {
             activeNum = activeNum.slice(0, activeNum.length - 1);
-            console.log(`sliced activeNum: ${activeNum}`);
             if (lastInputWasEquals) {
                 num1 = activeNum;
             }
         }
     }
     updateDisplay();
-    console.log(`final num1, activeNum, num2: ${num1}, ${activeNum}, ${num2}`);
 }
 function operateTwoStepButton(input) {
     if (lastInputWasEquals) {
@@ -93,7 +84,6 @@ function operateOneStepButton(input) {
     }
     
     if (input != "=") {
-        //num1 = activeNum;
         equals(input);
     }
 }
@@ -146,7 +136,6 @@ function equals(operator) {
 const display = document.querySelector(".screen-text");
 function updateDisplay() {
     activeNum = activeNum.toString();
-    console.log(`activeNum length at start of updateDisplay() = ${activeNum.length}`);
     if (activeNum.indexOf(".") != -1) {
         while (activeNum.lastIndexOf("0") === activeNum.length - 1 && lastInputWasEquals) {
             activeNum = activeNum.slice(0, activeNum.length - 2);
@@ -155,15 +144,11 @@ function updateDisplay() {
             activeNum = Number(activeNum).toFixed(activeNum.length - activeNum.indexOf(".") - 2).toString();
         }
     }
-    console.log(`activeNum length right before if = ${activeNum.length}`);
     if (activeNum.length > 12) {
-        console.log(`lastInputWasEquals = ${lastInputWasEquals}`);
         if (lastInputWasEquals) {
             activeNum = "Result too long";
-            console.log("if is caught");
         } else {
             activeNum = activeNum.slice(0, activeNum.length - 1);
-            console.log("else is caught");
         }
     }
     if (activeNum[0] === "0") {
@@ -184,9 +169,8 @@ function improveAccuracy(func) {
     func(activeNum);
     const adjustor = 10 ** 9;
     activeNum = Math.round(activeNum * adjustor) / adjustor;
-    console.log(`adjusted add equals: ${activeNum}`);
 }
-function add() {activeNum =  +num1 + +num2; console.log(`add equals: ${activeNum};`)}
+function add() {activeNum =  +num1 + +num2;}
 function subtract() {activeNum = +num1 - +num2;}
 function multiply() {activeNum = +num1 * +num2;}
 function divide() {activeNum = +num1 / +num2;}

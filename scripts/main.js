@@ -15,20 +15,47 @@ function clear() {
 
 const numPad = document.querySelector(".num-pad");
 
-// MAIN LOGIC START
+// SETUP LOGIC START
 createNumPad();
 
-const numBtns = document.querySelectorAll(".btn-num");
-numBtns.forEach(btn => btn.addEventListener("click", (e) => updateActiveNum(e.target.value)));
-
-const oneStepBtns = document.querySelectorAll(".btn-one-step");
-oneStepBtns.forEach(btn => btn.addEventListener("click", (e) => operateOneStepButton(e.target.value)));
-
-const twoStepBtns = document.querySelectorAll(".btn-two-step");
-twoStepBtns.forEach(btn => btn.addEventListener("click", (e) => operateTwoStepButton(e.target.value)));
-// MAIN LOGIC END
+const btns = document.querySelectorAll("button");
+btns.forEach(btn => btn.addEventListener("click", useCalc));
+document.addEventListener("keydown", useCalc);
+// SETUP LOGIC END
 
 // FUNCTIONS START
+function useCalc(input) {
+    let inputClasses;
+    let inputValue;
+    console.log(input);
+    if (input.type === "keydown") {
+        let pressedBtn;
+        if (input.key === "Enter") {
+            input.preventDefault();
+            pressedBtn = document.querySelector('button[value="="]');
+        } else if (input.key === "Backspace") {
+            pressedBtn = document.querySelector('button[value="<"]');
+        } else {
+            pressedBtn = document.querySelector(`button[value="${input.key}"]`);
+        }
+        inputClasses = pressedBtn.classList;
+        inputValue = pressedBtn.value;
+    } else {
+        inputClasses = input.target.classList;
+        inputValue = input.target.value;
+    }
+    switch (true) {
+        case inputClasses.contains("btn-num"):
+            updateActiveNum(inputValue);
+            break;
+        case inputClasses.contains("btn-one-step"):
+            operateOneStepButton(inputValue);
+            break;
+        case inputClasses.contains("btn-two-step"):
+            operateTwoStepButton(inputValue);
+            break;
+    }
+}
 function updateActiveNum(newDigit){
     if ((+newDigit > 0) ||
         (newDigit === "0" && activeNum.length > 0) ||

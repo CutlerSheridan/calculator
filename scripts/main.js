@@ -3,6 +3,7 @@ let num2 = "";
 let activeNum = "";
 let twoStepOperator = "";
 let lastInputWasEquals = false;
+let darkModeIsOn = false;
 
 function clear() {
     num1 = "";
@@ -12,7 +13,6 @@ function clear() {
     lastInputWasEquals = false;
     updateDisplay();
 }
-
 const numPad = document.querySelector(".num-pad");
 
 // SETUP LOGIC START
@@ -222,11 +222,16 @@ function createNumPad() {
         const newNumBtn = createButton(`${i}`, ["calc-btn", "btn-num"]);
         numPadFragment.appendChild(newNumBtn);
     }
-    const deleteBtn = createButton("<--", "<", ["calc-btn", "btn-num"]);
+    const deleteBtn = createButton("<—", "<", ["calc-btn", "btn-num"]); // that first param uses an em-dash
     const decimalBtn = createButton(".", ["calc-btn", "btn-num"]);
     numPadFragment.childNodes[8].after(decimalBtn);
     numPadFragment.childNodes[8].after(deleteBtn);
     numPad.appendChild(numPadFragment);
+
+    const buttonsContainer = document.querySelector(".buttons-container");
+    const gapSize = getComputedStyle(document.querySelector(":root")).getPropertyValue("--grid-gap-size");
+    buttonsContainer.style.gap = gapSize;
+    numPad.style.gap = gapSize;
 }
 
 function createButton(btnName) {

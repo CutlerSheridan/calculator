@@ -30,13 +30,20 @@ function useCalc(input) {
     console.log(input);
     if (input.type === "keydown") {
         let pressedBtn;
-        if (input.key === "Enter") {
-            input.preventDefault();
-            pressedBtn = document.querySelector('button[value="="]');
-        } else if (input.key === "Backspace") {
-            pressedBtn = document.querySelector('button[value="<"]');
-        } else {
-            pressedBtn = document.querySelector(`button[value="${input.key}"]`);
+        switch (input.key) {
+            case "Enter":
+                input.preventDefault();
+                pressedBtn = document.querySelector('button[value="="]');
+                break;
+            case "Backspace":
+                pressedBtn = document.querySelector('button[value="<"]');
+                break;
+            case "r":
+                pressedBtn = document.quearySelector('button[value="rand"]');
+                break;
+            default:
+                pressedBtn = document.querySelector(`button[value="${input.key}"]`);
+                break;
         }
         inputClasses = pressedBtn.classList;
         inputValue = pressedBtn.value;
@@ -213,7 +220,7 @@ function factorial(num) {
     }
 }
 function random() {
-    activeNum = Math.round(Math.random() * 1000);
+    activeNum = Math.round(Math.random() * 100);
 }
 
 function createNumPad() {
@@ -222,18 +229,13 @@ function createNumPad() {
         const newNumBtn = createButton(`${i}`, ["calc-btn", "btn-num"]);
         numPadFragment.appendChild(newNumBtn);
     }
-    const deleteBtn = createButton("<—", "<", ["calc-btn", "btn-num"]); // that first param uses an em-dash
+    const deleteBtn = createButton("←", "<", ["calc-btn", "btn-num"]); // that first param uses an em-dash
     const decimalBtn = createButton(".", ["calc-btn", "btn-num"]);
     numPadFragment.childNodes[8].after(decimalBtn);
     numPadFragment.childNodes[8].after(deleteBtn);
     numPad.appendChild(numPadFragment);
-
-    const buttonsContainer = document.querySelector(".buttons-container");
-    const gapSize = getComputedStyle(document.querySelector(":root")).getPropertyValue("--grid-gap-size");
-    buttonsContainer.style.gap = gapSize;
-    numPad.style.gap = gapSize;
+    addGaps();
 }
-
 function createButton(btnName) {
     const newBtn = document.createElement("button");
     newBtn.textContent = btnName;
@@ -249,5 +251,11 @@ function createButton(btnName) {
         }
     }
     return newBtn;
+}
+function addGaps() {
+    const buttonsContainer = document.querySelector(".buttons-container");
+    const gapSize = getComputedStyle(document.querySelector(":root")).getPropertyValue("--grid-gap-size");
+    buttonsContainer.style.gap = gapSize;
+    numPad.style.gap = gapSize;
 }
 // FUNCTIONS END

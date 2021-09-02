@@ -4,18 +4,23 @@
 Click on numbers.  Click on operators.  Get results.
 
 ### NEXT STEPS
-- give it style
-- make line under result cross 100% of the screen for small enough screens but not for bigger screens
+- put icon on dark mode button
+- add dark mode toggleability
+- adjust length of result screen so errors can display
+- make buttons press when you use keyboard
+- decide what to do on focus for accessibility
 
 ### TO-DO LATER
-- add dark mode toggle
 - make mobile-friendly
-- add touch controls
+- fix touch controls so only two-step-buttons stay highlighted
 - decide for sure how long the numbers should go and update display() and improveAccuracy() accordingly
 - decide if worth adding a bool that toggles on if the first press is tab or an arrow key so then I can use that info to conditionalize input.preventDefault() for "enter" in useCalc(); alternatively, don't use "enter" for "=" -- ahh maybe not necessary as the spacebar functions as enter when tabbing through buttons
 -add credit footer
+-clean up console.logs in main.js
 
 ### DONE
+- give it style
+- ~~make line under result cross 100% of the screen for small enough screens but not for bigger screens~~
 - make enter key work as "=" regardless of focused button
 - add keyboard inputs
 - deal with answers too long ~~(display msg for x seconds before clearing?)~~

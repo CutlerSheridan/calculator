@@ -1,11 +1,25 @@
 :root {
-    --clr-background: rgb(241, 252, 255);
+    --clr-background: rgb(245, 210, 209);
+    --clr-pri: rgb(54,42,42);
+    --clr-pri-light: rgb(180, 150, 150);
+    /*--clr-background: rgb(241, 252, 255);
     --clr-pri: rgb(34, 34, 34);
-    --btn-size: 5rem;
-    --grid-gap-size: .5rem;
-    font-size: 62.5%;
-    font-family: Helvetica, Arial, sans-serif;
+    --clr-pri-light: grey;*/
+    --btn-size: 6rem;
+    --grid-gap-size: 1rem;
+    font-size: 55%;
+    font-family: "Cutive Mono", "Anonymous Pro", "Overpass Mono", "JetBrains Mono", monospace;
     background: var(--clr-background);
+}
+@media (min-width: 342px) {
+    :root {
+        font-size: 62.5%;
+    }
+}
+@media (min-width: 800px) {
+    :root {
+        font-size: 90%;
+    }
 }
 * {
     margin: 0;
@@ -29,22 +43,24 @@ body {
 
 /*SCREEN START*/
 .screen {
-    width: calc(var(--btn-size)*5);
+    width: calc(var(--btn-size)*5 + var(--grid-gap-size)*4 - var(--btn-size)*2/3);
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-bottom: 1rem;
     /*border-bottom: .2rem solid var(--clr-pri);*/
-    padding: .5rem;
+    margin-bottom: var(--grid-gap-size);
     text-align: right;
-    letter-spacing: .05rem;
+    letter-spacing: .1rem;
+
 }
 .screen-text {
-    font-size: 2rem;
+    font-size: 4rem;
+    font-weight: 700;
     color: var(--clr-pri);
 }
 /*SCREEN END*/
 hr {
+    display: none;
     width: 100%;
     border: .1rem solid var(--clr-pri);
 }
@@ -52,29 +68,45 @@ hr {
 .buttons-container {
     display: grid;
     grid-template: repeat(5, 1fr) / repeat(5, 1fr);
+    margin-top: var(--grid-gap-size);
+    border: .1rem solid var(--clr-pri);
 }
 button {
     width: var(--btn-size);
     height: var(--btn-size);
-    font-size: 2rem;
-    letter-spacing: .1rem;
+    font-size: 2.5rem;
+    font-family: inherit;
+    font-style: inherit;
+    letter-spacing: -.2rem;
+    /*text-shadow:
+        1px 1px 0 var(--clr-background),
+        2px 2px 0 darkgrey;*/
     background: var(--clr-background);
     border: none;
     color: var(--clr-pri);
-    transition: all .2s;
-    background: red;
+    transition: all .15s;
 }
-button:hover {
-
-    box-shadow: 0 0 .4rem .1rem var(--clr-pri);
+button:hover,
+.btn-two-step:focus {
+    outline: none;
+    background: var(--clr-pri-light);
+}
+button:focus {
+    outline: none;
+}
+button:active {
+    
+    box-shadow: inset 0 0 .4rem .05rem var(--clr-pri);
 }
 .num-pad {
     grid-area: 2 / 1 / span 4 / span 3;
-    width: calc(var(--btn-size)*3 + var(--grid-gap-size)*2);
+    width: calc(var(--btn-size)*3 + var(--grid-gap-size)*2 );
     display: flex;
     flex-flow: row-reverse wrap;
+    /* if I get rid of this border, don't forget to adjust width */
+    /*border-top: .1rem solid var(--clr-pri);
+    border-right: .1rem solid var(--clr-pri);*/
 }
-
 #equals {
     width: calc((var(--btn-size))*2 + var(--grid-gap-size));
     grid-area: -1 / -1 / -2 / -3;

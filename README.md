@@ -4,8 +4,8 @@
 Click on numbers.  Click on operators.  Get results.
 
 ### NEXT STEPS
-- put icon on dark mode button
-- add dark mode toggleability
+- settle on dark mode's hover color
+- make dark mode button read clicks on icon
 - adjust length of result screen so errors can display
 - make buttons press when you use keyboard
 - decide what to do on focus for accessibility
@@ -19,6 +19,8 @@ Click on numbers.  Click on operators.  Get results.
 -clean up console.logs in main.js
 
 ### DONE
+- add dark mode toggleability
+- put icon on dark mode button
 - give it style
 - ~~make line under result cross 100% of the screen for small enough screens but not for bigger screens~~
 - make enter key work as "=" regardless of focused button

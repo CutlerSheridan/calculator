@@ -19,7 +19,7 @@ const numPad = document.querySelector(".num-pad");
 createNumPad();
 
 const btns = document.querySelectorAll("button");
-btns.forEach(btn => btn.addEventListener("click", useCalc));
+btns.forEach(btn => btn.addEventListener("click", useCalc, {useCapture: false})); //make this work
 document.addEventListener("keydown", useCalc);
 // SETUP LOGIC END
 
@@ -60,6 +60,9 @@ function useCalc(input) {
             break;
         case inputClasses.contains("btn-two-step"):
             operateTwoStepButton(inputValue);
+            break;
+        case inputClasses.contains("dark-mode-toggle"):
+            toggleDarkMode();
             break;
     }
 }
@@ -194,9 +197,33 @@ function updateDisplay() {
         return
     }
     if (activeNum === "Infinity") {
-        activeNum = "Cannot divide by 0";
+        activeNum = "Can't divide by 0";
     }
     display.textContent = activeNum;
+}
+function toggleDarkMode() {
+    const root = document.querySelector(":root");
+    const rootStyle = getComputedStyle(root);
+    const lightColors = { 
+        background: "rgb(245,210,209)",
+        primary: "rgb(54,42,42)",
+        primaryLight: "rgb(180,150,150)"
+    };
+    const darkColors = {
+        background: "rgb(54,42,42)",
+        primary: "rgb(245,210,209)",
+        primaryLight: "rgb(110,94,93)"
+    };
+    let colorsToUse;
+    if (rootStyle.getPropertyValue("--clr-background") === lightColors.background) {
+        colorsToUse = darkColors;//Object.assign({}, darkColors);
+    } else {
+        colorsToUse = Object.assign({}, lightColors);
+    }
+    root.style.setProperty("--clr-background", colorsToUse.background);
+    root.style.setProperty("--clr-pri", colorsToUse.primary);
+    root.style.setProperty("--clr-pri-light", colorsToUse.primaryLight);
+
 }
 
 function improveAccuracy(func) {

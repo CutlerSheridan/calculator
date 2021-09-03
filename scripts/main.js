@@ -19,7 +19,7 @@ const numPad = document.querySelector(".num-pad");
 createNumPad();
 
 const btns = document.querySelectorAll("button");
-btns.forEach(btn => btn.addEventListener("click", useCalc, {useCapture: false})); //make this work
+btns.forEach(btn => btn.addEventListener("click", useCalc)); //make this work
 document.addEventListener("keydown", useCalc);
 // SETUP LOGIC END
 
@@ -48,8 +48,8 @@ function useCalc(input) {
         inputClasses = pressedBtn.classList;
         inputValue = pressedBtn.value;
     } else {
-        inputClasses = input.target.classList;
-        inputValue = input.target.value;
+        inputClasses = input.currentTarget.classList;
+        inputValue = input.currentTarget.value;
     }
     switch (true) {
         case inputClasses.contains("btn-num"):

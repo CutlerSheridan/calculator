@@ -4,21 +4,21 @@
 Click on numbers.  Click on operators.  Get results.
 
 ### NEXT STEPS
-- settle on dark mode's hover color
-- adjust length of result screen so errors can display
-- make buttons press when you use keyboard
-- decide what to do on focus for accessibility
-
-### TO-DO LATER
 - make mobile-friendly
 - fix touch controls so only two-step-buttons stay highlighted
-- decide for sure how long the numbers should go and update display() and improveAccuracy() accordingly
-- decide if worth adding a bool that toggles on if the first press is tab or an arrow key so then I can use that info to conditionalize input.preventDefault() for "enter" in useCalc(); alternatively, don't use "enter" for "=" -- ahh maybe not necessary as the spacebar functions as enter when tabbing through buttons
+
+### TO-DO LATER
+- decide what to do on focus for accessibility
+- decide if worth adding a bool that toggles on if the first press is tab or an arrow key so then I can use that info to conditionalize input.preventDefault() for "enter" in useCalc(); alternatively, don't use "enter" for "=" -- maybe not necessary as the spacebar functions as enter when tabbing through buttons
 -add credit footer
 -clean up console.logs in main.js
 
 ### DONE
-- make dark mode button read clicks on icon
+- adjust ~~length of~~ result screen so errors can display
+- decide for sure how long the numbers should go and update display() and improveAccuracy() accordingly
+- make buttons press when you use keyboard *and release*
+- settle on dark mode's hover color
+- make dark mode button read clicks on icon _// this was a tough one--changed input.target to input.currentTarget in useCalc()_
 - add dark mode toggleability
 - put icon on dark mode button
 - give it style

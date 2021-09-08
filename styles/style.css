@@ -2,7 +2,7 @@
     --clr-background:rgb(245,210,209);
     --clr-pri:rgb(54,42,42);
     --clr-pri-light:rgb(180,150,150);
-    --clr-other: rgb(110, 94, 93); /*for testing colors*/
+    --clr-other: rgb(92, 78, 77); /*for testing dark mode highlight color*/
     --btn-size: 6rem;
     --grid-gap-size: 1rem;
     font-size: 50%;
@@ -41,32 +41,36 @@ body {
 
 /*SCREEN START*/
 .screen {
-    width: calc(var(--btn-size)*5 + var(--grid-gap-size)*4 - var(--btn-size)/2);
+    width: calc(var(--btn-size)*5 + var(--grid-gap-size)*4 - var(--btn-size)/3);
     display: flex;
     flex-direction: column;
     justify-content: center;
     margin-bottom: var(--grid-gap-size);
     text-align: right;
     letter-spacing: .1rem;
+    white-space: nowrap;
+    border: .1rem solid var(--clr-pri);
 }
 .screen-text {
-    font-size: 4rem;
+    margin: 0 .4rem;
+    font-size: 3.8rem;
     font-weight: 700;
     color: var(--clr-pri);
 }
-/*SCREEN END*/
-hr {
-    display: none;
-    width: 100%;
-    border: .1rem solid var(--clr-pri);
+@media (min-width: 750px) {
+    .screen-text {
+        margin: 0 .5rem;
+        font-size: 4rem;
+    }
 }
+/*SCREEN END*/
+
 /*BUTTONS START*/
 .buttons-container {
     display: grid;
     grid-template: repeat(5, 1fr) / repeat(5, 1fr);
     margin-top: var(--grid-gap-size);
     padding: calc(var(--btn-size) / 5);
-    border: .1rem solid var(--clr-pri);
 }
 button {
     width: var(--btn-size);
@@ -88,7 +92,12 @@ button:hover,
 button:focus {
     outline: none;
 }
+.btn-two-step:focus,
 button:active {
+    box-shadow: inset 0 0 .4rem .05rem var(--clr-pri);
+}
+.pressed-key {
+    background: var(--clr-pri-light);
     box-shadow: inset 0 0 .4rem .05rem var(--clr-pri);
 }
 .num-pad {
@@ -99,6 +108,12 @@ button:active {
     /* if I get rid of this border, don't forget to adjust width */
     /*border-top: .1rem solid var(--clr-pri);
     border-right: .1rem solid var(--clr-pri);*/
+}
+#dark-mode-toggle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 #equals {
     width: calc((var(--btn-size))*2 + var(--grid-gap-size));

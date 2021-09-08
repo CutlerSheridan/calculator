@@ -14,13 +14,16 @@ function clear() {
     updateDisplay();
 }
 const numPad = document.querySelector(".num-pad");
+const displayLength = 12;
 
 // SETUP LOGIC START
 createNumPad();
 
 const btns = document.querySelectorAll("button");
-btns.forEach(btn => btn.addEventListener("click", useCalc)); //make this work
+btns.forEach(btn => btn.addEventListener("click", useCalc));
 document.addEventListener("keydown", useCalc);
+btns.forEach(btn => btn.addEventListener("touchstart", () => btn.classList.add("pressed-key")));
+btns.forEach(btn => btn.addEventListener("transitionend", (e) => { removeKeyboardPress(e, btn); }));
 // SETUP LOGIC END
 
 // FUNCTIONS START
@@ -39,17 +42,29 @@ function useCalc(input) {
                 pressedBtn = document.querySelector('button[value="<"]');
                 break;
             case "r":
-                pressedBtn = document.quearySelector('button[value="rand"]');
+                pressedBtn = document.querySelector('button[value="rand"]');
+                break;
+            case "d":
+                pressedBtn = document.querySelector('button[value="dark-mode"]');
                 break;
             default:
                 pressedBtn = document.querySelector(`button[value="${input.key}"]`);
                 break;
         }
+        if (!pressedBtn) {
+            return;
+        }
+        pressedBtn.classList.add("pressed-key");
         inputClasses = pressedBtn.classList;
         inputValue = pressedBtn.value;
+
     } else {
         inputClasses = input.currentTarget.classList;
         inputValue = input.currentTarget.value;
+        
+        if (inputClasses.contains("btn-two-step")) {
+            input.currentTarget.classList.add("pressed-key");
+        }
     }
     switch (true) {
         case inputClasses.contains("btn-num"):
@@ -177,13 +192,13 @@ function updateDisplay() {
         while (activeNum.lastIndexOf("0") === activeNum.length - 1 && lastInputWasEquals) {
             activeNum = activeNum.slice(0, activeNum.length - 2);
         }
-        if (activeNum.length > 12) {
+        if (activeNum.length > displayLength) {
             activeNum = Number(activeNum).toFixed(activeNum.length - activeNum.indexOf(".") - 2).toString();
         }
     }
-    if (activeNum.length > 12) {
+    if (activeNum.length > displayLength) {
         if (lastInputWasEquals) {
-            activeNum = "Result too long";
+            activeNum = "Too long!";
         } else {
             activeNum = activeNum.slice(0, activeNum.length - 1);
         }
@@ -195,11 +210,19 @@ function updateDisplay() {
     if (!activeNum) {
         display.textContent = 0;
         return
-    }
-    if (activeNum === "Infinity") {
-        activeNum = "Can't divide by 0";
+    } else if (activeNum === "Infinity") {
+        activeNum = "Can't ÷ by 0";
+    } else if (activeNum === "NaN") {
+        activeNum = "Not a number";
     }
     display.textContent = activeNum;
+}
+function removeKeyboardPress(e, pressedBtn) {
+    console.log(e);
+    console.log(pressedBtn);
+    if (!(pressedBtn.classList.contains("btn-two-step")) && e.propertyName === "box-shadow") { // playing around here for touch controls
+        btns.forEach(btn => btn.classList.remove("pressed-key"));
+    }
 }
 function toggleDarkMode() {
     const root = document.querySelector(":root");
@@ -212,7 +235,7 @@ function toggleDarkMode() {
     const darkColors = {
         background: "rgb(54,42,42)",
         primary: "rgb(245,210,209)",
-        primaryLight: "rgb(110,94,93)"
+        primaryLight: "rgb(92,78,77)"
     };
     let colorsToUse;
     if (rootStyle.getPropertyValue("--clr-background") === lightColors.background) {
@@ -223,12 +246,10 @@ function toggleDarkMode() {
     root.style.setProperty("--clr-background", colorsToUse.background);
     root.style.setProperty("--clr-pri", colorsToUse.primary);
     root.style.setProperty("--clr-pri-light", colorsToUse.primaryLight);
-
 }
-
 function improveAccuracy(func) {
     func(activeNum);
-    const adjustor = 10 ** 9;
+    const adjustor = 10 ** (displayLength - 1);
     activeNum = Math.round(activeNum * adjustor) / adjustor;
 }
 function add() {activeNum =  +num1 + +num2;}
@@ -247,16 +268,15 @@ function factorial(num) {
     }
 }
 function random() {
-    activeNum = Math.round(Math.random() * 100);
+    activeNum = Math.round(Math.random() * 200);
 }
-
 function createNumPad() {
     let numPadFragment = document.createDocumentFragment();
     for (let i = 9; i >= 0; i--) {
         const newNumBtn = createButton(`${i}`, ["calc-btn", "btn-num"]);
         numPadFragment.appendChild(newNumBtn);
     }
-    const deleteBtn = createButton("←", "<", ["calc-btn", "btn-num"]); // that first param uses an em-dash
+    const deleteBtn = createButton("←", "<", ["calc-btn", "btn-num"]);
     const decimalBtn = createButton(".", ["calc-btn", "btn-num"]);
     numPadFragment.childNodes[8].after(decimalBtn);
     numPadFragment.childNodes[8].after(deleteBtn);

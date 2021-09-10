@@ -79,21 +79,23 @@ button {
     font-family: inherit;
     font-style: inherit;
     letter-spacing: -.2rem;
-    background: var(--clr-background);
+    background: transparent;
     border: none;
     color: var(--clr-pri);
     transition: all .15s;
 }
-button:hover,
-.btn-two-step:focus {
+body:not(.tab-user) button:hover {
     outline: none;
     background: var(--clr-pri-light);
 }
-button:focus {
+body.touch-user button:focus {
+    background: transparent;
+}
+body:not(.tab-user) button:focus {
     outline: none;
 }
-.btn-two-step:focus,
 button:active {
+    background: var(--clr-pri-light);
     box-shadow: inset 0 0 .4rem .05rem var(--clr-pri);
 }
 .pressed-key {

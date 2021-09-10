@@ -22,15 +22,22 @@ createNumPad();
 const btns = document.querySelectorAll("button");
 btns.forEach(btn => btn.addEventListener("click", useCalc));
 document.addEventListener("keydown", useCalc);
-btns.forEach(btn => btn.addEventListener("touchstart", () => btn.classList.add("pressed-key")));
+btns.forEach(btn => btn.addEventListener("touchstart", () => handleTouchUserStyle(btn)));
+// release typed button without having to press another one
 btns.forEach(btn => btn.addEventListener("transitionend", (e) => { removeKeyboardPress(e, btn); }));
 // SETUP LOGIC END
 
 // FUNCTIONS START
 function useCalc(input) {
+    handleTabUser(input);
+    if (input.keyCode === 9) {
+        return;
+    }
     let inputClasses;
     let inputValue;
     console.log(input);
+    btns.forEach(btn => btn.classList.remove("pressed-key"));
+
     if (input.type === "keydown") {
         let pressedBtn;
         switch (input.key) {
@@ -57,15 +64,20 @@ function useCalc(input) {
         pressedBtn.classList.add("pressed-key");
         inputClasses = pressedBtn.classList;
         inputValue = pressedBtn.value;
-
     } else {
-        inputClasses = input.currentTarget.classList;
-        inputValue = input.currentTarget.value;
-        
+        let pressedBtn;
+        if (document.body.classList.contains("tab-user")) {
+            pressedBtn = input.target;
+        } else {
+            pressedBtn = input.currentTarget;
+        }
+        inputClasses = pressedBtn.classList;
+        inputValue = pressedBtn.value;
         if (inputClasses.contains("btn-two-step")) {
-            input.currentTarget.classList.add("pressed-key");
+            pressedBtn.classList.add("pressed-key");
         }
     }
+
     switch (true) {
         case inputClasses.contains("btn-num"):
             updateActiveNum(inputValue);
@@ -218,12 +230,26 @@ function updateDisplay() {
     display.textContent = activeNum;
 }
 function removeKeyboardPress(e, pressedBtn) {
-    console.log(e);
+    //console.log(e);
     console.log(pressedBtn);
     if (!(pressedBtn.classList.contains("btn-two-step")) && e.propertyName === "box-shadow") { // playing around here for touch controls
         btns.forEach(btn => btn.classList.remove("pressed-key"));
+        //pressedBtn.style.backgroundColor = "transparent";
     }
 }
+
+function handleTouchUserStyle(touchedBtn) {
+    touchedBtn.classList.add("pressed-key");
+    document.body.classList.add("touch-user");
+}
+function handleTabUser(e) {
+    if (e.type === "keydown" && e.keyCode === 9) {
+        document.body.classList.add("tab-user");
+    } else if (e.type === "click" || e.type === "touch") {
+        document.body.classList.remove("tab-user");
+    }
+}
+
 function toggleDarkMode() {
     const root = document.querySelector(":root");
     const rootStyle = getComputedStyle(root);

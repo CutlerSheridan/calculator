@@ -4,16 +4,20 @@
 Click on numbers.  Click on operators.  Get results.
 
 ### NEXT STEPS
+- when tab user, retain outline after button press
 - make mobile-friendly
 - fix touch controls so only two-step-buttons stay highlighted
+- stop depressed touch buttons from flickering upon press?
 
 ### TO-DO LATER
-- decide what to do on focus for accessibility
-- decide if worth adding a bool that toggles on if the first press is tab or an arrow key so then I can use that info to conditionalize input.preventDefault() for "enter" in useCalc(); alternatively, don't use "enter" for "=" -- maybe not necessary as the spacebar functions as enter when tabbing through buttons
--add credit footer
--clean up console.logs in main.js
+- add credit footer
+- clean up console.logs in main.js
 
 ### DONE
+- decide what to do on focus for accessibility
+- get tabbing working so it doesn't auto-press buttons
+- decide if worth adding a bool that toggles on if the first press is tab or an arrow key so then I can use that info to conditionalize input.preventDefault() for "enter" in useCalc(); **alternatively, don't use "enter" for "=" -- maybe not necessary as the spacebar functions as enter when tabbing through buttons**
+- stop depressed two-step touch buttons from retaining more than one pressed button
 - adjust ~~length of~~ result screen so errors can display
 - decide for sure how long the numbers should go and update display() and improveAccuracy() accordingly
 - make buttons press when you use keyboard *and release*

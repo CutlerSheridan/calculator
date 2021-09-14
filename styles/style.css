@@ -84,12 +84,11 @@ button {
     color: var(--clr-pri);
     transition: all .15s;
 }
-body:not(.tab-user) button:hover {
-    outline: none;
-    background: var(--clr-pri-light);
-}
-body.touch-user button:focus {
-    background: transparent;
+@media (hover: hover) {
+    body:not(.tab-user) button:hover {
+        outline: none;
+        background: var(--clr-pri-light);
+    }
 }
 body:not(.tab-user) button:focus {
     outline: none;

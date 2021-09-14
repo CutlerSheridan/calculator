@@ -3,17 +3,19 @@
 
 Click on numbers.  Click on operators.  Get results.
 
+Works with mouse, keyboard, or touch controls.  Desktop- and mobile-friendly.
+
 ### NEXT STEPS
-- when tab user, retain outline after button press
-- make mobile-friendly
-- fix touch controls so only two-step-buttons stay highlighted
-- stop depressed touch buttons from flickering upon press?
+- add credit footer
 
 ### TO-DO LATER
-- add credit footer
-- clean up console.logs in main.js
+- when tab user, retain outline after button press
+- stop depressed touch buttons from flickering upon press?
 
 ### DONE
+- clean up tester console.logs in main.js
+- fix touch controls so only two-step-buttons stay highlighted / hover state is not sticky
+- make mobile-friendly
 - decide what to do on focus for accessibility
 - get tabbing working so it doesn't auto-press buttons
 - decide if worth adding a bool that toggles on if the first press is tab or an arrow key so then I can use that info to conditionalize input.preventDefault() for "enter" in useCalc(); **alternatively, don't use "enter" for "=" -- maybe not necessary as the spacebar functions as enter when tabbing through buttons**

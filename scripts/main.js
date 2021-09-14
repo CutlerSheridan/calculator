@@ -35,7 +35,6 @@ function useCalc(input) {
     }
     let inputClasses;
     let inputValue;
-    console.log(input);
     btns.forEach(btn => btn.classList.remove("pressed-key"));
 
     if (input.type === "keydown") {
@@ -230,17 +229,9 @@ function updateDisplay() {
     display.textContent = activeNum;
 }
 function removeKeyboardPress(e, pressedBtn) {
-    //console.log(e);
-    console.log(pressedBtn);
     if (!(pressedBtn.classList.contains("btn-two-step")) && e.propertyName === "box-shadow") { // playing around here for touch controls
         btns.forEach(btn => btn.classList.remove("pressed-key"));
-        //pressedBtn.style.backgroundColor = "transparent";
     }
-}
-
-function handleTouchUserStyle(touchedBtn) {
-    touchedBtn.classList.add("pressed-key");
-    document.body.classList.add("touch-user");
 }
 function handleTabUser(e) {
     if (e.type === "keydown" && e.keyCode === 9) {

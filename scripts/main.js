@@ -256,7 +256,7 @@ function toggleDarkMode() {
     };
     let colorsToUse;
     if (rootStyle.getPropertyValue("--clr-background") === lightColors.background) {
-        colorsToUse = darkColors;//Object.assign({}, darkColors);
+        colorsToUse = darkColors;//alt option: Object.assign({}, darkColors);
     } else {
         colorsToUse = Object.assign({}, lightColors);
     }

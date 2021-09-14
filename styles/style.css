@@ -121,3 +121,26 @@ button:active {
     grid-area: -1 / -1 / -2 / -3;
 }
 /*BUTTONS ENDS*/
+
+/*--FOOTER START--*/
+footer {
+    position: relative;
+    top: -7rem;
+    padding: 2rem 3rem;
+    font-size: 1.1rem;
+    text-align: right;
+}
+@media (min-width: 400px) {
+    footer {
+        padding: 2rem 4rem;
+        font-size: 1rem;
+    }
+}
+.footer-text {
+    color: var(--clr-pri);
+}
+a {
+    color: var(--clr-pri);
+    text-underline-offset: .23rem;
+}
+/*--FOOTER END--*/

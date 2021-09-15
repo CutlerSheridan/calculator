@@ -119,6 +119,10 @@ function operateTwoStepButton(input) {
         activeNum = num1;
     }
     if (twoStepOperator) {
+        if (!(document.querySelector(`button[value="${twoStepOperator}"]`).classList.contains("pressed-key"))) {
+            twoStepOperator = input;
+            return;
+        }
         num2 = activeNum;
         equals(twoStepOperator);
     }
@@ -138,7 +142,9 @@ function operateOneStepButton(input) {
         equals(input);
         updateDisplay();
         num2 = activeNum;
-        lastInputWasEquals = false;
+        if (input != "!") {
+            lastInputWasEquals = false;
+        }
         return;
     }
     if (twoStepOperator) {
@@ -224,7 +230,7 @@ function updateDisplay() {
     } else if (activeNum === "Infinity") {
         activeNum = "Can't ÷ by 0";
     } else if (activeNum === "NaN") {
-        activeNum = "Not a number";
+        activeNum = "Error";
     }
     display.textContent = activeNum;
 }
@@ -280,12 +286,16 @@ function power() {activeNum =  num1 ** num2;}
 function factorial(num) {
     if (num > 1) {
         return num * factorial(num - 1);
-    } else {
+    } else if (num === 0) {
         return 1;
+    } else {
+        lastInputWasEquals = true;
+        return "Error";
     }
 }
 function random() {
-    activeNum = Math.round(Math.random() * 200);
+    //activeNum = Math.round(Math.random() * 200);
+    activeNum = Math.random().toFixed(displayLength);
 }
 function createNumPad() {
     let numPadFragment = document.createDocumentFragment();

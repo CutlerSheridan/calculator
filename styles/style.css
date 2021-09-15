@@ -82,8 +82,8 @@ button {
     background: transparent;
     border: none;
     color: var(--clr-pri);
-    -webkit-tap-highlight-color: transparent;
-    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent; /* this stops mobile press flickering */
+    touch-action: manipulation; /* this prevents double-tap zooming */
     transition: all .15s;
 }
 @media (hover: hover) {

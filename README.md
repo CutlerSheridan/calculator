@@ -11,6 +11,7 @@ Works with mouse, keyboard, or touch controls.  Desktop- and mobile-friendly.
 - when tab user, retain outline after button press
 
 #### DONE
+- prevent zoom on double-tapped buttons on mobile
 - stop depressed touch buttons from flickering upon press on mobile
 - add credit footer
 - clean up tester console.logs in main.js

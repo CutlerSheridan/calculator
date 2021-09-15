@@ -83,6 +83,7 @@ button {
     border: none;
     color: var(--clr-pri);
     -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
     transition: all .15s;
 }
 @media (hover: hover) {

@@ -82,6 +82,7 @@ button {
     background: transparent;
     border: none;
     color: var(--clr-pri);
+    -webkit-tap-highlight-color: transparent;
     transition: all .15s;
 }
 @media (hover: hover) {

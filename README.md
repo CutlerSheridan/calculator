@@ -5,13 +5,13 @@ Click on numbers.  Click on operators.  Get results.
 
 Works with mouse, keyboard, or touch controls.  Desktop- and mobile-friendly.
 
-### NEXT STEPS
+#### NEXT STEPS
 
-### TO-DO LATER
+#### TO-DO LATER
 - when tab user, retain outline after button press
-- stop depressed touch buttons from flickering upon press?
 
-### DONE
+#### DONE
+- stop depressed touch buttons from flickering upon press on mobile
 - add credit footer
 - clean up tester console.logs in main.js
 - fix touch controls so only two-step-buttons stay highlighted / hover state is not sticky

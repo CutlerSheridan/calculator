@@ -7,10 +7,11 @@ Works with mouse, keyboard, or touch controls.  Desktop- and mobile-friendly.
 
 #### NEXT STEPS
 
-#### TO-DO LATER
+##### TO-DO LATER
 - when tab user, retain outline after button press
 
-#### DONE
+##### DONE
+- make link to portfolio open in new tab
 - switch random() to return num between 0 and 1
 - fix error when pressing two two-step operators sequentially
 - make factorial errors clear upon next button press

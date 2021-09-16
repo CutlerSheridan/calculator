@@ -284,12 +284,12 @@ function invert() {activeNum = activeNum * -1;}
 function percent() {activeNum = activeNum / 100;}
 function power() {activeNum =  num1 ** num2;}
 function factorial(num) {
+    lastInputWasEquals = true;
     if (num > 1) {
         return num * factorial(num - 1);
-    } else if (num === 0) {
+    } else if (num === 1) {
         return 1;
     } else {
-        lastInputWasEquals = true;
         return "Error";
     }
 }

@@ -6,9 +6,11 @@ Click on numbers.  Click on operators.  Get results.
 Works with mouse, keyboard, or touch controls.  Desktop- and mobile-friendly.
 
 #### NEXT STEPS
+- fix factorial button from however I fucked it up
 
 ##### TO-DO LATER
 - when tab user, retain outline after button press
+- fix how, if you divide by 0 by continue with another operator instead of "equals," it doesn't give error
 
 ##### DONE
 - switch random() to return num between 0 and 1

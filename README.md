@@ -6,13 +6,14 @@ Click on numbers.  Click on operators.  Get results.
 Works with mouse, keyboard, or touch controls.  Desktop- and mobile-friendly.
 
 #### NEXT STEPS
-- fix factorial button from however I fucked it up
+- "1!" should not give an error (wtf?)
+- fix how, if you divide by 0 but continue with another operator instead of "equals," it doesn't give error
 
 ##### TO-DO LATER
 - when tab user, retain outline after button press
-- fix how, if you divide by 0 by continue with another operator instead of "equals," it doesn't give error
 
 ##### DONE
+- fix factorial button from however I fucked it up
 - switch random() to return num between 0 and 1
 - fix error when pressing two two-step operators sequentially
 - make factorial errors clear upon next button press
